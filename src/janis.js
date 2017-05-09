@@ -414,7 +414,7 @@ function isFunction(functionToCheck) {
     return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 }
     
-module.exports = function(apikey, clienkey, config) {
+module.exports = function(apikey, clientkey, config) {
 
     if (!apikey && !clientkey) {
         throw new Error('YOU MUST SUPPLY AN API_KEY AND A CLIENT_KEY TO janis!');

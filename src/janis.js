@@ -134,7 +134,7 @@ function janisBot(apikey, clientkey, config) {
             },
             json: message
         };
-        if (useWebhook === false) {
+        if (that.useWebhook === false) {
             data.headers.socket_id  = that.getSocketId();
         }
         if (reply) {

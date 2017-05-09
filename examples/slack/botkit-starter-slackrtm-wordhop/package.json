@@ -1,13 +1,13 @@
 {
   "name": "botkit-studio-starter-janis",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A starter kit for building a custom bot with Botkit Studio with janis integration",
   "main": "bot.js",
   "dependencies": {
     "botkit": "^0.4",
     "dashbot": "0.7.4",
     "wordfilter": "^0.2.6",
-    "janis": "^0.0.2"
+    "janis": "^0.0.3"
   },
   "devDependencies": {},
   "scripts": {},

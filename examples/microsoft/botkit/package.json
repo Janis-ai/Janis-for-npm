@@ -1,6 +1,6 @@
 {
   "name": "janis-microsoft",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "",
-    "janis": "^0.0.2",
+    "janis": "^0.0.3",
     "botkit":""
   }
 }

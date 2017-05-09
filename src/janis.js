@@ -429,31 +429,31 @@ module.exports = function(apikey, clienkey, config) {
     var janisbot = janisBot(apikey, clientkey, config);
     var platform = janisbot.platform;
     var useWebhook = janisbot.useWebhook;
-    var this;
+    var janisObj;
     if (platform == 'slack') {
-        this = new janisBotSlack(janisbot, controller, debug);
+        janisObj = new janisBotSlack(janisbot, controller, debug);
     } else if (platform == 'facebook' || platform == 'messenger') {
         platform = "messenger";
-        this = new janisBotFacebook(janisbot, controller, debug);
+        janisObj = new janisBotFacebook(janisbot, controller, debug);
     } else if (platform == 'microsoft') {
         platform = "microsoft";
-        this = new janisBotMicrosoft(janisbot, controller, debug);
+        janisObj = new janisBotMicrosoft(janisbot, controller, debug);
     } else {
         throw new Error('platform not supported. please set it to be either "slack" or "messenger (alias: facebook)".');
     }
     janisbot.platform = platform;
     if (useWebhook === false) {
-        this.emit = janisbot.emit;
-        this.on = janisbot.on;
-        this.getSocketId = janisbot.getSocketId;
+        janisObj.emit = janisbot.emit;
+        janisObj.on = janisbot.on;
+        janisObj.getSocketId = janisbot.getSocketId;
     }
-    this.checkForPaused = janisbot.checkForPaused;
-    this.logUnkownIntent = janisbot.logUnknownIntent;
-    this.logUnknownIntent = janisbot.logUnknownIntent;
-    this.assistanceRequested = janisbot.assistanceRequested;
-    this.socket = janisbot.socket;
+    janisObj.checkForPaused = janisbot.checkForPaused;
+    janisObj.logUnkownIntent = janisbot.logUnknownIntent;
+    janisObj.logUnknownIntent = janisbot.logUnknownIntent;
+    janisObj.assistanceRequested = janisbot.assistanceRequested;
+    janisObj.socket = janisbot.socket;
 
-    this.hopIn = function(message, arg1, arg2) {
+    janisObj.hopIn = function(message, arg1, arg2) {
         var cb;
         var reply;
         if (isFunction(arg1)) {
@@ -482,7 +482,7 @@ module.exports = function(apikey, clienkey, config) {
         });
     };
 
-    this.hopOut = function(message, cb) {
+    janisObj.hopOut = function(message, cb) {
         return janisbot.hopOut(message)
         .then(function (obj) {
             if (cb) {
@@ -498,7 +498,7 @@ module.exports = function(apikey, clienkey, config) {
         });
     };
 
-    this.setPlatform = function(platform) {
+    janisObj.setPlatform = function(platform) {
         if (platform == 'facebook' || platform == 'messenger') {
             platform = "messenger";
         }
@@ -507,5 +507,5 @@ module.exports = function(apikey, clienkey, config) {
         }
     }
     
-    return this;
+    return janisObj;
 };

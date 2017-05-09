@@ -15,7 +15,7 @@ function janisBot(apikey, clientkey, config) {
         that.serverRoot = config.serverRoot || 'https://wordhopapi.herokuapp.com';
         that.controller = config.controller;
         that.platform = config.platform || 'messenger';
-        that.platform = platform.toLowerCase();
+        that.platform = that.platform.toLowerCase();
         that.socketServer = config.socketServer || 'https://wordhop-socket-server.herokuapp.com';
         that.token = config.token || '';
         that.useWebhook = config.useWebhook || false;
@@ -201,7 +201,7 @@ function janisBot(apikey, clientkey, config) {
     }
 
     var io = require('socket.io-client');
-    var socket = io.connect(socketServer);
+    var socket = io.connect(that.socketServer);
     that.socket = socket;
     that.emit = function(event, message) {
         socket.emit(event, message);
@@ -241,7 +241,7 @@ function janisBot(apikey, clientkey, config) {
     that.events = {};
 
     that.trigger = function(event, data) {
-         if (debug) {
+         if (that.debug) {
             console.log('handler:', event);
         }
         if (that.events[event]) {
@@ -252,7 +252,7 @@ function janisBot(apikey, clientkey, config) {
                     return;
                 }
             }
-        } else if (debug) {
+        } else if (that.debug) {
             console.log('No handler for', event);
         }
     };
@@ -280,9 +280,9 @@ function janisBot(apikey, clientkey, config) {
 }
 
 
-function janisBotFacebook(janisbot, controller, debug) {
+function janisBotFacebook(janisbot) {
     var that = this;
-    that.controller = controller;
+    that.controller = janisbot.controller;
     if (that.controller) {
         that.controller.on('message_received', function(bot, message) {
             janisbot.logUnknownIntent(message);
@@ -303,9 +303,9 @@ function janisBotFacebook(janisbot, controller, debug) {
 }
 
 
-function janisBotMicrosoft(janisbot, controller, debug) {
+function janisBotMicrosoft(janisbot) {
     var that = this;
-    that.controller = controller;
+    that.controller = janisbot.controller;
     if (that.controller) {
         that.controller.on('message_received', function(bot, message) {
             janisbot.logUnknownIntent(message);
@@ -325,9 +325,9 @@ function janisBotMicrosoft(janisbot, controller, debug) {
     };
 }
 
-function janisBotSlack(janisbot, controller, debug) {
+function janisBotSlack(janisbot) {
     var that = this;
-    that.controller = controller;
+    that.controller = janisbot.controller;
     
     // botkit middleware endpoints
     that.send = function(bot, message, next) {
@@ -431,13 +431,13 @@ module.exports = function(apikey, clientkey, config) {
     var useWebhook = janisbot.useWebhook;
     var janisObj;
     if (platform == 'slack') {
-        janisObj = new janisBotSlack(janisbot, controller, debug);
+        janisObj = new janisBotSlack(janisbot);
     } else if (platform == 'facebook' || platform == 'messenger') {
         platform = "messenger";
-        janisObj = new janisBotFacebook(janisbot, controller, debug);
+        janisObj = new janisBotFacebook(janisbot);
     } else if (platform == 'microsoft') {
         platform = "microsoft";
-        janisObj = new janisBotMicrosoft(janisbot, controller, debug);
+        janisObj = new janisBotMicrosoft(janisbot);
     } else {
         throw new Error('platform not supported. please set it to be either "slack" or "messenger (alias: facebook)".');
     }

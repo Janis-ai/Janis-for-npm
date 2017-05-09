@@ -127,7 +127,7 @@ controller.setupWebserver(process.env.port || 5000, function(err, webserver) {
 
 // janis related code
 
-var janis = require('janis')(process.env.janis_API_KEY, process.env.janis_CLIENT_KEY,
+var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY,
         {platform:'messenger',
         token:process.env.MESSENGER_PAGE_ACCESS_TOKEN
     });

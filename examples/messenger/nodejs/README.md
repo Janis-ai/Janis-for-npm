@@ -30,8 +30,8 @@ environment-specific variables on new lines in the form of `NAME=VALUE`.
 For example:
 
 ```
-janis_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-janis_CLIENT_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JANIS_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JANIS_CLIENT_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 MESSENGER_PAGE_ACCESS_TOKEN=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 MESSENGER_VALIDATION_TOKEN=xxxxxxxxxxxxxxxxxxxx
 MESSENGER_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

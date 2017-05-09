@@ -60,7 +60,7 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   process.exit(1);
 }
 
-var janis = require('janis')(process.env.janis_API_KEY, process.env.janis_CLIENT_KEY,
+var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY,
         {platform:'messenger',
         token:PAGE_ACCESS_TOKEN
     });

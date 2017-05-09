@@ -37,8 +37,8 @@ $ npm install --save janis
 
 ```javascript
 var janis = require('janis');
-var apiKey = process.env.janis_API_KEY; // <= key provided by janis for Slack
-var clientKey = process.env.janis_CLIENT_KEY; // <= key provided by janis for Slack
+var apiKey = process.env.JANIS_API_KEY; // <= key provided by janis for Slack
+var clientKey = process.env.JANIS_CLIENT_KEY; // <= key provided by janis for Slack
 var botPlatform = 'messenger'; // <= possible values: 'messenger', 'slack', 'microsoft'
 var token = process.env.PAGE_ACCESS_TOKEN; // <= only required for Messenger bots.
 var janis = janis(apiKey, clientKey, {platform: botPlatform, token:token});

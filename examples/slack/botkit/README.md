@@ -29,8 +29,8 @@ environment-specific variables on new lines in the form of `NAME=VALUE`.
 For example:
 
 ```
-janis_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-janis_CLIENT_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JANIS_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JANIS_CLIENT_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 token=xoxb-11111111111-11111111111111111111111
 ```
 Run the following command to get your bot online:

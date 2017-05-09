@@ -3,8 +3,8 @@ var builder = require('botbuilder');
 require('dotenv').config();
 
 var janis = require('janis');
-var apiKey = process.env.janis_API_KEY; // <= key provided by janis for Slack
-var clientKey = process.env.janis_CLIENT_KEY; // <= key provided by janis for Slack
+var apiKey = process.env.JANIS_API_KEY; // <= key provided by janis for Slack
+var clientKey = process.env.JANIS_CLIENT_KEY; // <= key provided by janis for Slack
 var botPlatform = 'microsoft'; // <= possible values: 'messenger', 'slack', 'microsoft'
 var token = process.env.MESSENGER_PAGE_ACCESS_TOKEN; // <= to see profile image in transcript for Messenger channel, you must include
 var janis = janis(apiKey, clientKey, {platform: botPlatform, token:token});

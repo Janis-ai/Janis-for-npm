@@ -6,7 +6,7 @@ var request = require('request');
 var WebSocket = require('ws');
 require('dotenv').config();
 
-var janis = require('janis')(process.env.janis_API_KEY,process.env.janis_CLIENT_KEY, {platform:'slack'});
+var janis = require('janis')(process.env.JANIS_API_KEY,process.env.JANIS_CLIENT_KEY, {platform:'slack'});
 
 //start
 app.listen(3000, function(){

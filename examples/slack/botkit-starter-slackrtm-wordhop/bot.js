@@ -80,8 +80,8 @@ if (process.env.DASHBOT_API_KEY) {
   controller.log.info('No DASHBOT_API_KEY specified. For free turnkey analytics for your bot, go to https://www.dashbot.io/ to get your key.');
 }
 
-if (process.env.janis_API_KEY && process.env.janis_CLIENT_KEY) {
-  var janis = require('janis')(process.env.janis_API_KEY, process.env.janis_CLIENT_KEY, {platform:'slack'});
+if (process.env.JANIS_API_KEY && process.env.JANIS_CLIENT_KEY) {
+  var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY, {platform:'slack'});
   // Add the janis middleware 
   controller.middleware.receive.use(janis.receive); 
   controller.middleware.send.use(janis.send);

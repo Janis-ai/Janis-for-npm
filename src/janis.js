@@ -162,7 +162,7 @@ function janisBot(apikey, clientkey, config) {
             },
             json: message
         };
-        if (useWebhook === false) {
+        if (that.useWebhook === false) {
             data.headers.socket_id  = that.getSocketId();
         }
         return rp(data);
@@ -428,7 +428,6 @@ module.exports = function(apikey, clientkey, config) {
 
     var janisbot = janisBot(apikey, clientkey, config);
     var platform = janisbot.platform;
-    var useWebhook = janisbot.useWebhook;
     var janisObj;
     if (platform == 'slack') {
         janisObj = new janisBotSlack(janisbot);
@@ -442,7 +441,7 @@ module.exports = function(apikey, clientkey, config) {
         throw new Error('platform not supported. please set it to be either "slack" or "messenger (alias: facebook)".');
     }
     janisbot.platform = platform;
-    if (useWebhook === false) {
+    if (janisbot.useWebhook === false) {
         janisObj.emit = janisbot.emit;
         janisObj.on = janisbot.on;
         janisObj.getSocketId = janisbot.getSocketId;

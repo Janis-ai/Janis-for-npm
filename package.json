@@ -1,0 +1,24 @@
+{
+  "name": "janis",
+  "version": "0.0.1",
+  "description": "A toolkit for creating a hybrid Chatbot + Human UX",
+  "main": "src/janis.js",
+  "dependencies": {
+    "request-promise": "^3.0.0",
+    "socket.io-client": "^1.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [
+    "chatbot",
+    "bot",
+    "opitmization",
+    "analytics"
+  ],
+  "author": "Michael Nathanson",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/janis-ai/janis.git"
+  }
+}

@@ -1,0 +1,18 @@
+{
+"scripts": {
+    "start": "node ./messenger_bot_botkit.js"
+  },
+  "dependencies": {
+    "botkit":"^0.4.3",
+    "dotenv":"^2.0.0",
+    "janis":"^0.0.1"
+  },
+    "engines": {
+    "node": "5.11.1"
+  },
+  "repository" :
+  { "type" : "git", 
+    "url" : "https://github.com/janis-ai/janis-npm.git"
+  },
+  "license" : "BSD-3-Clause" 
+}

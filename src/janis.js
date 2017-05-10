@@ -9,6 +9,8 @@ var checkIfString = function(myVar) {
 
 function janisBot(apikey, clientkey, config) {
     var that = Object;
+    that.apikey = apikey;
+    that.clientkey = clientkey;
 
     if (config) {
         that.debug = config.debug || false;

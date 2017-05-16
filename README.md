@@ -1,24 +1,30 @@
-# [janis](https://www.janis.ai) - Enhance Slack For Customer Service
-## For Bots Built in Node.js
+# [janis](https://www.janis.ai) - A Customer Service Toolkit For Slack
+## Connect Chatbots Built in Node.js
 
-Janis turns Slack into powerful customer service software.  You can integrate Janis into bots you're building easily and then monitor your bots from Slack.  Janis will alert you when to take over live and open a channel for you to get 1 on 1 with your customer, then automatically resume your bot when you're done. 
+Janis alerts you in Slack when your bot can't communicate and opens a channel for you to take over live.  Janis automatically resumes when you're done.  If you use AI such as API.AI you can connect it to Janis and train your AI from live conversation transcripts.  Add Janis to your Slack team and then integrate this SDK into bots you're building in minutes. Janis begins working immediately.  It's an elegant solution to unify your team, bot and customer communications in a single, intuitive interface.
 
 ![Takeover](https://www.janis.ai/github/takeover.gif)
 
 
-You can integrate Janis in minutes and it begins working immediately.  This module has been tested with Messenger, Slack, Skype, and Microsoft Webchat. Please see our [examples](./examples/).
-It supports bot developers working in Node, Python and Ruby.
+This module has been tested with Messenger, Slack, Skype, and Microsoft Webchat. Please see our [examples](./examples/).
+It supports bot developers working in Node, Python and Ruby and popular bot building frameworks like Botkit and Botpress.
 
-### What you can do with janis:
-You can view a full list of features at (https://www.janis.ai).  This toolkit enables bot developers to integrate Janis into their conversational experience.
+### What you can do with Janis:
+You can view a full list of features at (https://www.janis.ai).  This toolkit enables you to integrate Janis into your bot so you can manage your messaging experience from Slack.  Key features include:
+* Get real-time alerts when your bot is failing your users
+* Take over live to retain your users.  Janis automatically takes over when you're done
+* Train AI on the fly through real conversations
+* Get reports and insights on how to improve your AI and your conversational experience
+* Collaborate with your Slack team on customer service
 
 ### What you need to get started:
 * [Janis for Slack](https://slack.com/oauth/authorize?scope=im:history,users:read,users:read.email,commands,chat:write:bot,chat:write:user,channels:read,channels:history,files:write:user,channels:write,links:read,links:write,bot&client_id=23850726983.39760486257)
-* [A bot built in Node.js](./examples/)
+* [A Chatbot built in Node.js](./examples/)
+* [Optional: An API.AI account](http://www.api.ai) 
 
 ##### Operational Dependencies:
-1.  You'll need an API key from janis and for each Chatbot a Bot Token.  You can get both of those (free) when you add janis to Slack and through a conversation with janis. 
-2.  If you're building a Messenger Chatbot, you'll need to setup a Facebook App, Facebook Page, get the Page Access Token from Facebook and link the Facebook App to the Facebook Page for janis to work.
+1.  You'll need an API key from Janis and a Client Key for each Chatbot you register with Janis.  You can get both of those (free) when you add Janis to Slack. 
+2.  If you're building a Messenger Chatbot, you'll need to setup a Facebook App, Facebook Page, get the Page Access Token from Facebook and link the Facebook App to the Facebook Page for Janis to work. This is standard for any Chatbot you build for Messenger.
 
 
 ### Installation

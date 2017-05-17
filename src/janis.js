@@ -12,17 +12,16 @@ function janisBot(apikey, clientkey, config) {
     that.apikey = apikey;
     that.clientkey = clientkey;
 
-    if (config) {
-        that.debug = config.debug || false;
-        that.serverRoot = config.serverRoot || 'https://wordhopapi.herokuapp.com';
-        that.controller = config.controller;
-        that.platform = config.platform || 'messenger';
-        that.platform = that.platform.toLowerCase();
-        that.socketServer = config.socketServer || 'https://wordhop-socket-server.herokuapp.com';
-        that.token = config.token || '';
-        that.useWebhook = config.useWebhook || false;
-        that.path = config.path || '/api/v1/';
-    }
+    that.debug = config.debug || false;
+    that.serverRoot = config.serverRoot || 'https://wordhopapi.herokuapp.com';
+    that.controller = config.controller;
+    that.platform = config.platform || 'messenger';
+    that.platform = that.platform.toLowerCase();
+    that.socketServer = config.socketServer || 'https://wordhop-socket-server.herokuapp.com';
+    that.token = config.token || '';
+    that.useWebhook = config.useWebhook || false;
+    that.path = config.path || '/api/v1/';
+    
     
     that.checkIfMessage = function(msg) {
         var message = msg;
@@ -426,6 +425,10 @@ module.exports = function(apikey, clientkey, config) {
     }
     if (!clientkey) {
         throw new Error('YOU MUST SUPPLY A CLIENT_KEY TO janis');
+    }
+
+    if (config == null) {
+        config = {};
     }
 
     var janisbot = janisBot(apikey, clientkey, config);

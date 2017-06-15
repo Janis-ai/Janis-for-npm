@@ -3,13 +3,13 @@
 
 Artificial intelligence is only as good as the training it receives. With Janis, you can connect your AI in 60 seconds and start training from Slack.  Drop this code into your bot code in minutes and you can pause your bot and take over live when your bot fails your customers.  Your bot will automatically resume when you're done.  You can view a full list of features at (https://developer.janis.ai).
 
-* Train   
+* Train:   
 Collaborate with your team to define intents and your responses. Simulate bot conversations in a dedicated Slack channel.
 
-* Take Over Live
+* Take Over Live:  
 Get real-time alerts when your bot fails your customers. Pause your bot and take over live, while training your AI to learn from the conversation and improve for the future.
 
-* Insights
+* Insights:  
 Identify bottlenecks in your conversational experience and see where your AI needs more training, then measure the impact of additional training with analytics.
 
 ### What you need to get started:

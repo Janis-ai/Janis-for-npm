@@ -1,16 +1,16 @@
 # [Janis](https://developer.Janis.ai)
 ## For Chatbots Built in Node.js
 
-Artificial intelligence is only as good as the training it receives. With Janis, you can connect your AI in 60 seconds and start training from Slack.  Drop this code into your bot code in minutes and you can pause your bot and take over live when your bot fails your customers.  Your bot will automatically resume when you're done.  You can view a full list of features at (https://developer.janis.ai).
+Artificial intelligence is only as good as the training it receives.  Connect AI from companies like Google and Facebook in 60 seconds and start training with your team. Accelerate automation, make better decisions together, and delight your customers 24/7.
 
-* Train:   
-Collaborate with your team to define intents and your responses. Simulate bot conversations in a dedicated Slack channel.
+* Train
+Define and categorize what customers say and your responses. Simulate bot conversations in a dedicated Slack channel. 
 
-* Take Over Live:  
-Get real-time alerts when your bot fails your customers. Pause your bot and take over live, while training your AI to learn from the conversation and improve for the future.
+* Copilot
+Get real-time alerts when your bot needs a human to take over. Pause your bot and chat live, while training your AI to learn from conversations and improve for the future.
 
-* Insights:  
-Identify bottlenecks in your conversational experience and see where your AI needs more training, then measure the impact of additional training with analytics.
+* Gain Insight
+Identify bottlenecks in your conversational experience and see where your AI needs more training, then measure the impact of additional training on key performance metrics.
 
 ### What you need to get started:
 * [Janis for Slack](https://slack.janis.ai)

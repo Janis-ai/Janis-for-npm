@@ -197,7 +197,7 @@ function janisBot(apikey, clientkey, config) {
         });
     }
 
-    that.getPausedChannels = function(channel, cb) {
+    that.getPausedChannels = function(cb) {
         var headers = {
                         'content-type': 'application/json',
                         'apikey': that.apikey,

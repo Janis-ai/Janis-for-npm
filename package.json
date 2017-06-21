@@ -1,6 +1,6 @@
 {
   "name": "janis",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A toolkit for creating a hybrid Chatbot + Human UX",
   "main": "src/janis.js",
   "dependencies": {
@@ -19,6 +19,6 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git://github.com/janis-ai/janis.git"
+    "url": "git://github.com/janis-ai/janis-npm.git"
   }
 }

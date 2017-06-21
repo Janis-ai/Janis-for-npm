@@ -83,7 +83,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.logUnknownIntent = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return;
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -103,7 +103,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.assistanceRequested = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -121,7 +121,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopIn = function(message, reply) {
         if (that.checkIfMessage(message) == false) { 
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -149,7 +149,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopOut = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -181,6 +181,33 @@ function janisBot(apikey, clientkey, config) {
             url: that.serverRoot + that.path + 'channel_state',
             headers: headers,
             json: {"channel": channel}
+        };
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            throw err;
+        });
+    }
+
+    that.getPausedChannels = function(channel, cb) {
+        var headers = {
+                        'content-type': 'application/json',
+                        'apikey': that.apikey,
+                        'clientkey': that.clientkey,
+                        'type': 'paused_check'
+                    };
+        var data = {
+            method: 'GET',
+            url: that.serverRoot + that.path + 'channels/paused',
+            headers: headers
         };
         return rp(data)
         .then(function (obj) {
@@ -475,7 +502,7 @@ module.exports = function(apikey, clientkey, config) {
             message.paused = isPaused;
             if (cb) {
                 cb(isPaused);
-            } 
+            }
             return Promise.resolve(isPaused);
         })
         .catch(function (err) {

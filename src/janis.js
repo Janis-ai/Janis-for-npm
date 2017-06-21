@@ -103,7 +103,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.assistanceRequested = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.reject();
+            return Promise.resolve();
         }
         var data = {
             method: 'POST',
@@ -121,7 +121,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopIn = function(message, reply) {
         if (that.checkIfMessage(message) == false) { 
-            return Promise.reject();
+            return Promise.resolve();
         }
         var data = {
             method: 'POST',
@@ -149,7 +149,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopOut = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.reject();
+            return Promise.resolve();
         }
         var data = {
             method: 'POST',

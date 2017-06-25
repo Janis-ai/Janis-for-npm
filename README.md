@@ -1,21 +1,25 @@
 # [Janis](https://developer.Janis.ai)
 ## For Chatbots Built in Node.js
 
-Artificial intelligence is only as good as the training it receives.  Connect AI from companies like Google and Facebook in 60 seconds and start training with your team. Accelerate automation, make better decisions together, and delight your customers 24/7.
+Artificial intelligence is only as good as the training it receives.  With Janis, you can train and monitor your AI from Slack to accelerate automation and reduce time and costs associated with customer service.
 
 * Train
-Define and categorize what customers say and your responses. Simulate bot conversations in a dedicated Slack channel. 
+Define and categorize what users say and your responses. Simulate bot conversations in a dedicated Slack channel and only go live when you're confident in your automation.
 
-* Copilot
-Get real-time alerts when your bot needs a human to take over. Pause your bot and chat live, while training your AI to learn from conversations and improve for the future.
+* Monitor
+Get alerts when a human should take over. Pause your bot and chat live with customers, while training your AI to learn from your conversations so you can improve for the future.
 
-* Gain Insight
-Identify bottlenecks in your conversational experience and see where your AI needs more training, then measure the impact of additional training on key performance metrics.
+* Gain Insights
+See where your AI needs more training with analytics, then measure the impact of additional training on key performance metrics.
+
+
+To learn more about Janis' capabilities, visit the [Janis Developer Portal](https://developer.janis.ai)
 
 ### What you need to get started:
 * [Janis for Slack](https://slack.janis.ai)
 * [A Chatbot built in Node.js](./examples/)
 * [Optional: An API.AI account](http://www.api.ai) 
+(Other AI sources such as wit.ai are on the roadmap, but you can still use other features to monitor and manage your AI until then)
 
 ##### Operational Dependencies:
 1.  You'll need an API key from Janis and a Client Key for each Chatbot you register with Janis.  You can get both of those (free) when you add Janis to Slack. 

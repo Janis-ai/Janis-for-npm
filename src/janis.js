@@ -210,7 +210,8 @@ function janisBot(apikey, clientkey, config) {
             headers: headers
         };
         return rp(data)
-        .then(function (obj) {
+        .then(function (body) {
+            var obj = JSON.parse(body);
             if (cb) {
                 cb(obj);
             } 

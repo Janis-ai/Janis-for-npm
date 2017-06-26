@@ -482,6 +482,7 @@ module.exports = function(apikey, clientkey, config) {
     janisObj.logUnkownIntent = janisbot.logUnknownIntent;
     janisObj.logUnknownIntent = janisbot.logUnknownIntent;
     janisObj.assistanceRequested = janisbot.assistanceRequested;
+    janisObj.getPausedChannels = janisbot.getPausedChannels;
     janisObj.socket = janisbot.socket;
 
     janisObj.hopIn = function(message, arg1, arg2) {

@@ -4,13 +4,13 @@
 Artificial intelligence is only as good as the training it receives.  With Janis, you can train and monitor your AI from Slack to accelerate automation and reduce time and costs associated with customer service.
 
 * Train
-Define and categorize what users say and your responses. Simulate bot conversations in a dedicated Slack channel and only go live when you're confident in your automation.
+Collaborate with your team on what users say and your responses. Create and test bot dialogues with users in a dedicated AI training channel.
 
 * Monitor
-Get alerts when a human should take over. Pause your bot and chat live with customers, while training your AI to learn from your conversations so you can improve for the future.
+Get alerts when your AI fails your users. Take over and chat live while training your AI to learn from the conversation.
 
 * Gain Insights
-See where your AI needs more training with analytics, then measure the impact of additional training on key performance metrics.
+Janis shows you where your AI needs more training and the impact of additional training on your customer experience.
 
 
 To learn more about Janis' capabilities, visit the [Janis Developer Portal](https://developer.janis.ai)

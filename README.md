@@ -1,7 +1,7 @@
-# [Janis](https://developer.Janis.ai)
+# [Janis](https://www.Janis.ai)
 ## For Chatbots Built in Node.js
 
-Artificial intelligence is only as good as the training it receives.  With Janis, you can train and monitor your AI from Slack to accelerate automation and reduce time and costs associated with customer service.
+Artificial intelligence is only as good as the training it receives.  Janis enables teams working in Slack to train AI together and accelerate automation.
 
 * Train
 Collaborate with your team on what users say and your responses. Create and test bot dialogues with users in a dedicated AI training channel.
@@ -12,11 +12,10 @@ Get alerts when your AI fails your users. Take over and chat live while training
 * Gain Insights
 Janis shows you where your AI needs more training and the impact of additional training on your customer experience.
 
-
-To learn more about Janis' capabilities, visit the [Janis Developer Portal](https://developer.janis.ai)
+To learn more about Janis' capabilities, visit [Janis.ai](https://www.janis.ai)
 
 ### What you need to get started:
-* [Janis for Slack](https://slack.janis.ai)
+* [Janis for Slack](https://www.janis.ai)
 * [A Chatbot built in Node.js](./examples/)
 * [Optional: An API.AI account](http://www.api.ai) 
 (Other AI sources such as wit.ai are on the roadmap, but you can still use other features to monitor and manage your AI until then)

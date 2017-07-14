@@ -98,6 +98,9 @@ function janisBot(apikey, clientkey, config) {
             },
             json: message
         };
+        if (that.token != "") {
+            data.headers.token = that.token;
+        }
         return rp(data);
     }
 
@@ -116,6 +119,9 @@ function janisBot(apikey, clientkey, config) {
             },
             json: message
         };
+        if (that.token != "") {
+            data.headers.token = that.token;
+        }
         return rp(data);
     }
 
@@ -165,6 +171,9 @@ function janisBot(apikey, clientkey, config) {
         };
         if (that.useWebhook === false) {
             data.headers.socket_id  = that.getSocketId();
+        }
+        if (that.token != "") {
+            data.headers.token = that.token;
         }
         return rp(data);
     }

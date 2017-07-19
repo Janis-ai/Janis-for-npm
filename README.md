@@ -1,5 +1,5 @@
 # [Janis](https://www.Janis.ai) - Your Bot Manager
-## For Vots Built in Node.js
+## For bots built with Node.js
 
 Janis helps teams train and monitor bots and fix problems fast.  [Build a bot in Node.js](./examples/) and integrate Janis with just a few lines of code to ensure delightful conversational experiences in every messaging channel.
 

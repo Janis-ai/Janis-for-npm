@@ -338,7 +338,7 @@ function janisBot(apikey, clientkey, config) {
             if (cb) {
                 cb(false);
             } 
-            return alse;
+            return false;
         });
     }
 

@@ -104,16 +104,10 @@ function janisBot(apikey, clientkey, config) {
         rp(data)
         return rp(data)
         .then(function (obj) {
-            if (cb) {
-                cb(obj);
-            } 
             return obj;
         })
         .catch(function (err) {
-            if (cb) {
-                cb(false);
-            } 
-            return alse;
+            return false;
         });
     }
 
@@ -137,16 +131,10 @@ function janisBot(apikey, clientkey, config) {
         }
         return rp(data)
         .then(function (obj) {
-            if (cb) {
-                cb(obj);
-            } 
             return obj;
         })
         .catch(function (err) {
-            if (cb) {
-                cb(false);
-            } 
-            return alse;
+            return false;
         });
     }
 
@@ -177,16 +165,10 @@ function janisBot(apikey, clientkey, config) {
         }
         return rp(data)
         .then(function (obj) {
-            if (cb) {
-                cb(obj);
-            } 
             return obj;
         })
         .catch(function (err) {
-            if (cb) {
-                cb(false);
-            } 
-            return alse;
+            return false;
         });
     }
 
@@ -214,16 +196,10 @@ function janisBot(apikey, clientkey, config) {
         }
         return rp(data)
         .then(function (obj) {
-            if (cb) {
-                cb(obj);
-            } 
             return obj;
         })
         .catch(function (err) {
-            if (cb) {
-                cb(false);
-            } 
-            return alse;
+            return false;
         });
     }
     

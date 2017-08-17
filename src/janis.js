@@ -192,7 +192,7 @@ function janisBot(apikey, clientkey, config) {
                 if (cb) {
                     cb(obj);
                 } 
-                return return Promise.resolve(obj);
+                return Promise.resolve(obj);
             }
         }
 

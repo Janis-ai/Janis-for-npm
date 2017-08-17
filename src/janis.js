@@ -226,7 +226,7 @@ function janisBot(apikey, clientkey, config) {
             if (cb) {
                 cb({paused: false});
             } 
-            throw err;
+            return {paused: false};
         });
     }
 
@@ -254,7 +254,7 @@ function janisBot(apikey, clientkey, config) {
             if (cb) {
                 cb(false);
             } 
-            throw err;
+            return false;
         });
     }
 

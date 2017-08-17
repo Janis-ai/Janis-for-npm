@@ -178,7 +178,25 @@ function janisBot(apikey, clientkey, config) {
         return rp(data);
     }
     
-    that.checkForPaused = function(channel, cb) {
+    that.checkForPaused = function(msg, cb) {
+        var channel;
+        if  (typeof(msg) == 'string') {
+            channel = msg;
+        } else if (msg.channel) {
+            channel = msg.channel; 
+        } else {
+            try {
+                channel = msg.recipient.id;
+            } catch (e) {
+                var obj = {paused: false};
+                if (cb) {
+                    cb(obj);
+                } 
+                return return Promise.resolve(obj);
+            }
+        }
+
+            
         var headers = {
                         'content-type': 'application/json',
                         'apikey': that.apikey,
@@ -192,7 +210,8 @@ function janisBot(apikey, clientkey, config) {
             json: {"channel": channel}
         };
         return rp(data)
-        .then(function (obj) {
+        .then(function (body) {
+            var obj = JSON.parse(body);
             if (cb) {
                 cb(obj);
             } 

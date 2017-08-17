@@ -258,6 +258,30 @@ function janisBot(apikey, clientkey, config) {
         });
     }
 
+    that.pauseChannel = function(channel_id, minutes, cb) {
+        var headers = {
+            'content-type': 'application/json',
+            'apikey': that.apikey,
+            'clientkey': that.clientkey,
+            'type': 'paused_channel'
+        };
+
+        var url = that.serverRoot + that.path + "update_channel";
+        var data = {
+            method: 'POST',
+            url: url,
+            json: {
+                'channel_id': channel_id,
+                'paused': true,
+                'is_archived': false,
+                'minutes': minutes
+            },
+            headers: headers
+        };
+        return rp(data);
+    }
+
+
     if (that.useWebhook) {
         return that;
     }
@@ -517,6 +541,7 @@ module.exports = function(apikey, clientkey, config) {
     janisObj.logUnknownIntent = janisbot.logUnknownIntent;
     janisObj.assistanceRequested = janisbot.assistanceRequested;
     janisObj.getPausedChannels = janisbot.getPausedChannels;
+    janisObj.pauseChannel = janisbot.pauseChannel;
     janisObj.socket = janisbot.socket;
 
     janisObj.hopIn = function(message, arg1, arg2) {

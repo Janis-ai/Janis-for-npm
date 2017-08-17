@@ -184,9 +184,15 @@ function janisBot(apikey, clientkey, config) {
             channel = msg;
         } else if (msg.channel) {
             channel = msg.channel; 
+        } else if (msg.message.is_echo) {
+            var obj = {paused: false};
+            if (cb) {
+                cb(obj);
+            } 
+            return Promise.resolve(obj);
         } else {
             try {
-                channel = msg.recipient.id;
+                channel = msg.sender.id;
             } catch (e) {
                 var obj = {paused: false};
                 if (cb) {
@@ -210,8 +216,7 @@ function janisBot(apikey, clientkey, config) {
             json: {"channel": channel}
         };
         return rp(data)
-        .then(function (body) {
-            var obj = JSON.parse(body);
+        .then(function (obj) {
             if (cb) {
                 cb(obj);
             } 
@@ -219,7 +224,7 @@ function janisBot(apikey, clientkey, config) {
         })
         .catch(function (err) {
             if (cb) {
-                cb(false);
+                cb({paused: false});
             } 
             throw err;
         });

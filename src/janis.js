@@ -101,7 +101,20 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data);
+        rp(data)
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return alse;
+        });
     }
 
     that.assistanceRequested = function(message) {
@@ -122,7 +135,19 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data);
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return alse;
+        });
     }
 
     that.hopIn = function(message, reply) {
@@ -150,7 +175,19 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data);
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return alse;
+        });
     }
 
     that.hopOut = function(message) {
@@ -175,7 +212,19 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data);
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return alse;
+        });
     }
     
     that.checkForPaused = function(msg, cb) {
@@ -278,7 +327,19 @@ function janisBot(apikey, clientkey, config) {
             },
             headers: headers
         };
-        return rp(data);
+        return rp(data)
+        .then(function (obj) {
+            if (cb) {
+                cb(obj);
+            } 
+            return obj;
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return alse;
+        });
     }
 
 

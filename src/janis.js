@@ -101,13 +101,12 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        rp(data)
         return rp(data)
         .then(function (obj) {
             return obj;
         })
         .catch(function (err) {
-            return false;
+            return err;
         });
     }
 
@@ -134,7 +133,7 @@ function janisBot(apikey, clientkey, config) {
             return obj;
         })
         .catch(function (err) {
-            return false;
+            return err;
         });
     }
 
@@ -168,7 +167,7 @@ function janisBot(apikey, clientkey, config) {
             return obj;
         })
         .catch(function (err) {
-            return false;
+            return err;
         });
     }
 
@@ -199,7 +198,7 @@ function janisBot(apikey, clientkey, config) {
             return obj;
         })
         .catch(function (err) {
-            return false;
+            return err;
         });
     }
     
@@ -279,7 +278,7 @@ function janisBot(apikey, clientkey, config) {
             if (cb) {
                 cb(false);
             } 
-            return false;
+            return err;
         });
     }
 
@@ -314,7 +313,7 @@ function janisBot(apikey, clientkey, config) {
             if (cb) {
                 cb(false);
             } 
-            return false;
+            return err;
         });
     }
 

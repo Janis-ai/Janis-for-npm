@@ -13,7 +13,7 @@ function janisBot(apikey, clientkey, config) {
     that.clientkey = clientkey;
 
     that.debug = config.debug || false;
-    that.serverRoot = config.serverRoot || 'https://wordhopapi.herokuapp.com';
+    that.serverRoot = config.serverRoot || 'https://janis.ai';
     that.controller = config.controller;
     that.platform = config.platform || 'messenger';
     that.platform = that.platform.toLowerCase();
@@ -422,6 +422,8 @@ function janisBotFacebook(janisbot) {
             next();
         });
     };
+
+    return that;
 }
 
 
@@ -445,6 +447,7 @@ function janisBotMicrosoft(janisbot) {
             next();
         });
     };
+    return that;
 }
 
 function janisBotSlack(janisbot) {
@@ -529,6 +532,7 @@ function janisBotSlack(janisbot) {
             janisbot.logUnknownIntent(message);
         });
     }
+    return that;
 }
 
 function isFunction(functionToCheck) {
@@ -579,6 +583,116 @@ module.exports = function(apikey, clientkey, config) {
     janisObj.getPausedChannels = janisbot.getPausedChannels;
     janisObj.pauseChannel = janisbot.pauseChannel;
     janisObj.socket = janisbot.socket;
+
+    
+
+    /*
+     * Converts API.AI response into message object and returns it
+     *
+     */
+    janisObj.convertFromApiaiResponseToMessage = function(response) {
+        if (response.result.fulfillment.messages != null) {
+            var attachments = [];
+            var quick_replies = [];
+            var text = response.result.fulfillment.speech;
+            if (response.result.fulfillment.messages) {
+                for (var i = 0; i < response.result.fulfillment.messages.length; i++) {
+                    var m = response.result.fulfillment.messages[i];
+                    if (m.payload) {
+                        var payload = m.payload;
+                        if (payload.attachments) {
+                            for (var a = 0; a < payload.attachments.length; a++) {
+                                attachments.push(payload.attachments[a]);
+                            }
+                        }
+                        if (payload.text) {
+                            text = text + "\n" + payload.text;
+                        }
+                    }
+                    if (m.speech) {
+                        if (m.speech) {
+                            text = m.speech;
+                        }
+                    } else if (m.replies != null) {
+                        for (var r = 0; r < m.replies.length; r++) {
+                            var reply = m.replies[r];
+                            var callback_id = reply;
+                            var action = {
+                                "content_type": "text",
+                                "title": reply,
+                                "payload": callback_id
+                            }
+                            quick_replies.push(action);
+                        }
+                    } else if (m.buttons != null) {
+                        var actions = [];
+                        for (var r = 0; r < m.buttons.length; r++) {
+                            var button = m.buttons[r];
+                            var callback_id = "generic_callback";
+                            if (response.result.action) {
+                                callback_id = response.result.action;
+                            }
+                            var postback = button.text;
+                            if (button.postback) {
+                                postback = button.postback;
+                            }
+                            if (button.text) {
+                                var action = {
+                                    "name": button.text,
+                                    "text": button.text,
+                                    "type": "button",
+                                    "value": postback
+                                }
+                                actions.push(action);
+                            }
+                        }
+                        var title = "";
+                        if (m.title) {
+                            title = m.title;
+                        }
+                        var subtitle = "";
+                        if (m.subtitle) {
+                            subtitle = m.subtitle;
+                        }
+                        var attachment = {
+                            "mrkdwn_in": ["fields", "text", "pretext"],
+                            "text": subtitle,
+                            "title": title,
+                            "callback_id": callback_id,
+                            "attachment_type": "default",
+                            "color": "#3AA3E3",
+                            "fallback": title,
+                            "actions": actions
+                        };
+                        attachments.push(attachment);
+                    } else if (m.imageUrl != null) {
+                        var attachment = {
+                            "fallback": "image",
+                            "title": "",
+                            "text": "",
+                            "color": "#3AA3E3",
+                            "image_url": m.imageUrl
+                        }
+                        attachments.push(attachment);
+                    }
+                }
+            }
+            text = text.replace(/\\n/g, "\n");
+            text = text.replace(/\\t/g, "\t");
+            var obj = {
+                text: text
+            };
+            if (attachments.length > 0) {
+                obj.attachments = attachments;
+            }
+            if (quick_replies.length > 0) {
+                obj.quick_replies = quick_replies;
+            }
+            return obj;
+        } else {
+            return {text: ""};
+        }
+    }
 
     janisObj.hopIn = function(message, arg1, arg2) {
         var cb;

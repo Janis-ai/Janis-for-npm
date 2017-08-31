@@ -36,7 +36,11 @@ function janisBot(apikey, clientkey, config) {
         if (message.postback) {
             return true;
         }
-        if (msg.message) {
+        if (message.ok && message.message) {
+          message.message.channel = message.channel;
+          message = message.message;
+        }
+        else if (msg.message) {
             if  (!checkIfString(msg.message)) {
                 message = msg.message;
             } else {
@@ -59,16 +63,17 @@ function janisBot(apikey, clientkey, config) {
         if (message.text == null) {
             message.text = "";
         }
+
         if ((message.type == 'user_message' || message.type == 'message' || 
             message.type == 'facebook_postback' || message.type == null || message.page) &&
             message.transcript == null &&
             (message.subtype == null || message.subtype == "file_share") &&
             message.hasOwnProperty("reply_to") == false &&
             message.is_echo == null &&
-            message.bot_id == null &&
             (message.text.length > 0 || message.attachments != null || message.attachment != null)) {
             return true;
         } else {
+        
             return false;
         }
     }

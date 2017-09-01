@@ -692,7 +692,7 @@ module.exports = function(apikey, clientkey, config) {
             }
             if (quick_replies.length > 0) {
                 obj.quick_replies = quick_replies;
-                obj.metadata = {quick_replies: quick_replies};
+                obj.metadata = '{"quick_replies": ' + JSON.stringify(quick_replies) + '}';
             }
             return obj;
         } else {

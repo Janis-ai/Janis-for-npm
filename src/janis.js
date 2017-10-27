@@ -1,7 +1,6 @@
 'use strict';
 
-var rp = require('request-promise');
-var Promise = require("bluebird");
+var rp = require('request-promise-native');
 
 var checkIfString = function(myVar) {
     return (typeof myVar === 'string' || myVar instanceof String)
@@ -63,7 +62,6 @@ function janisBot(apikey, clientkey, config) {
         if (message.text == null) {
             message.text = "";
         }
-
         if ((message.type == 'user_message' || message.type == 'message' || 
             message.type == 'facebook_postback' || message.type == null || message.page) &&
             message.transcript == null &&
@@ -73,7 +71,6 @@ function janisBot(apikey, clientkey, config) {
             (message.text.length > 0 || message.attachments != null || message.attachment != null)) {
             return true;
         } else {
-        
             return false;
         }
     }
@@ -117,7 +114,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.assistanceRequested = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -144,7 +141,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopIn = function(message, reply) {
         if (that.checkIfMessage(message) == false) { 
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',
@@ -178,7 +175,7 @@ function janisBot(apikey, clientkey, config) {
 
     that.hopOut = function(message) {
         if (that.checkIfMessage(message) == false) {
-            return Promise.resolve();
+            return Promise.reject();
         }
         var data = {
             method: 'POST',

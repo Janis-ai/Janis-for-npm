@@ -3,13 +3,13 @@
 
 Janis helps teams train and monitor bots and fix problems fast.  [Build a bot in Node.js](./examples/) and integrate Janis with just a few lines of code to ensure delightful conversational experiences in every messaging channel.
 
-* Train
+##### Train
 Collaborate on what users say and your responses in a dedicated training channel. Experience exactly what your users will experience when they message you.
 
-* Monitor
+##### Monitor
 Janis alerts you in Slack when your bot needs your help. Use our smart alerts, or create your own alerts to bring humans in the loop.
 
-* Fix Problems Fast
+##### Fix Problems Fast
 Take over for your bot and chat live to retain your users, while training your AI to learn from the conversation. Hand control back to your bot when you're done.
 
 To learn more about Janis' capabilities, visit [Janis.ai](https://www.janis.ai)

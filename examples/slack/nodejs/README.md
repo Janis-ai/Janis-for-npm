@@ -1,10 +1,10 @@
-# [janis](https://www.janis.ai) Slack Bot Botkit Example
+# [Janis](https://www.janis.ai) Slack Bot Botkit Example
 
-This is a simple Slack bot built with Botkit and janis integration example.
+This is a simple Messenger Chatbot built with [Botkit](https://github.com/howdyai/botkit) and [Janis](https://www.janis.ai). 
 
 ### Sign Up With janis
 
-You'll need an API key from janis, as well as a Client Key for each Chatbot.  You can get both of those (free) when you add [janis for Slack](https://slack.com/oauth/authorize?scope=users:read,users:read.email,commands,chat:write:bot,channels:read,channels:write,bot&client_id=23850726983.39760486257) via a conversation with the janis bot. 
+You'll need an API key from Janis and a Client Key for your Chatbot.  You can get both of those (free) when you add [Janis for Slack](https://www.janis.ai) and start a conversation with Janis in Slack.
 
 ### Connecting Your Bot to Slack
 

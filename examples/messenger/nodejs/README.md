@@ -38,7 +38,14 @@ MESSENGER_VALIDATION_TOKEN=<MESSENGER_VALIDATION_TOKEN>
 
 ### Set App Roles
 
-Once you have completed the steps above and completed the Janis installation, go to the Facebook page where you added your bot with Janis integrated. Click "Settings" for the page, than select Messenger Platform. Set your app to be the "Primary Receiver". Set Janis as the "Secondary Receiver". For more information about app roles, see: [Facebook App Roles](https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles).
+Once you have completed the steps above and completed the Janis installation, go to the Facebook page where you added your bot with Janis integrated. Click "Settings" for the page, than select Messenger Platform. 
+
+Under **Response Method**, ensure the following radio button is selected:
+
+*Responses are partially automated, with some support by people*
+
+
+Under **Subscribed Apps**, set your app to be the "Primary Receiver". Set Janis as the "Secondary Receiver". For more information about app roles, see: [Facebook App Roles](https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles).
 
 ### Dialogflow
 

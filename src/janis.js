@@ -319,6 +319,70 @@ function janisBot(apikey, clientkey, config) {
         });
     }
 
+    that.passThreadControl = function(event, cb) {
+
+        var recipientID = event.recipient.id;
+        var message = event.message;
+        var isEcho = message.is_echo;
+        var appId = message.app_id;
+
+        if (isEcho) {
+          
+            //If an agent responds via the Messenger Inbox, then `appId` will be null.
+            //If an agent responds from Janis on Slack, the `appId` will be 1242623579085955.
+            //In both cases, we should pause your bot by giving the thread control to Janis.
+            //Janis will pass control back to your app again after 10 minutes of inactivity. 
+            //If you want to manually pass back control, use the slash command `/resume` 
+            //in the Janis transcript channel, or press "Done" in the Page Inbox on the thread.
+            
+            var janisAppId = 1242623579085955;
+            if (that.janisAppId) {
+                janisAppId = that.janisAppId;
+            }
+            if (appId == janisAppId || appId == null) {
+                //See: https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles
+                //This app should be the Primary Receiver. Janis should be a Secondary Receiver.
+                //Every time an echo from either Janis or the Page Inbox is received,
+                //this app passes control over to Janis so the humans are the only ones who can respond.            
+                var data = {
+                    uri: 'https://graph.facebook.com/v2.6/me/pass_thread_control',
+                    qs: {
+                        access_token: that.token
+                    },
+                    method: 'POST',
+                    json: {
+                        "recipient": {
+                            "id": recipientID
+                        },
+                        "target_app_id": target_app_id,
+                        "metadata": "passing thread"
+                    }
+                }
+                return rp(data)
+                .then(function (obj) {
+                    if (cb) {
+                        cb(obj);
+                    } 
+                    return obj;
+                })
+                .catch(function (err) {
+                    if (cb) {
+                        cb(false);
+                    } 
+                    return err;
+                });
+            }
+            if (cb) {
+                cb("message not from janis");
+            }
+            return Promise.resolve("message not from janis");
+        }
+        if (cb) {
+            cb("no echo");
+        }
+        return Promise.resolve("no echo");
+    }
+
 
     if (that.useWebhook) {
         return that;
@@ -585,6 +649,7 @@ module.exports = function(apikey, clientkey, config) {
     janisObj.getPausedChannels = janisbot.getPausedChannels;
     janisObj.pauseChannel = janisbot.pauseChannel;
     janisObj.socket = janisbot.socket;
+    janisObj.passThreadControl = janisbot.passThreadControl;
 
     
 

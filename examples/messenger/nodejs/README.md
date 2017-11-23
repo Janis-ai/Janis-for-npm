@@ -19,7 +19,7 @@ JANIS_CLIENT_KEY=<JANIS_CLIENT_KEY>
 ```
 ### Authorize Janis
 
-Janis will also generate a link for you which will enables you to authorize Janis to subscribe to your Facebook page. The link will be in this format: *https://janis.ai/fb?client_key=<JANIS_CLIENT_KEY>*
+Janis will also generate a link for you that enables you to authorize Janis to subscribe to your Facebook page. The link will be in this format: *https://janis.ai/fb?client_key=<JANIS_CLIENT_KEY>*
 
 ### Facebook App
 

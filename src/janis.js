@@ -20,6 +20,7 @@ function janisBot(apikey, clientkey, config) {
     that.token = config.token || '';
     that.useWebhook = config.useWebhook || false;
     that.path = config.path || '/api/v1/';
+    that.janisAppId = config.janisAppId || 1242623579085955;
     
     
     that.checkIfMessage = function(msg) {
@@ -335,11 +336,8 @@ function janisBot(apikey, clientkey, config) {
             //If you want to manually pass back control, use the slash command `/resume` 
             //in the Janis transcript channel, or press "Done" in the Page Inbox on the thread.
             
-            var janisAppId = 1242623579085955;
-            if (that.janisAppId) {
-                janisAppId = that.janisAppId;
-            }
-            if (appId == janisAppId || appId == null) {
+            
+            if (appId == that.janisAppId || appId == null) {
                 //See: https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles
                 //This app should be the Primary Receiver. Janis should be a Secondary Receiver.
                 //Every time an echo from either Janis or the Page Inbox is received,
@@ -354,7 +352,7 @@ function janisBot(apikey, clientkey, config) {
                         "recipient": {
                             "id": recipientID
                         },
-                        "target_app_id": target_app_id,
+                        "target_app_id": that.janisAppId,
                         "metadata": "passing thread"
                     }
                 }

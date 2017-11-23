@@ -322,8 +322,8 @@ function janisBot(apikey, clientkey, config) {
 
     that.passThreadControl = function(event, cb) {
 
-        var recipientID = event.recipient.id;
         var message = event.message;
+        var recipientID = message.page ? message.page : event.recipient.id;
         var isEcho = message.is_echo;
         var appId = message.app_id;
 

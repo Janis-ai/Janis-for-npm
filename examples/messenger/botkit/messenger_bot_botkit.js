@@ -126,23 +126,14 @@ controller.setupWebserver(process.env.port || 5000, function(err, webserver) {
 
 
 // janis related code
-
-var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY,
-        {platform:'messenger',
-        token:process.env.MESSENGER_PAGE_ACCESS_TOKEN
-    });
-
-controller.middleware.receive.use(janis.receive); 
-controller.middleware.send.use(janis.send);
-
-// Handle forwarding the messages sent by a human through your bot
-janis.on('chat response', function (message) {
-    // Handle forwarding the messages sent by a human through your bot
-    bot.say(message);
+var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY, {
+    platform: 'messenger',
+    useWebhook: true,
+    token: process.env.MESSENGER_PAGE_ACCESS_TOKEN
 });
 
 // Listens for an intent whereby a user wants to talk to a human
-controller.hears(['help', 'operator', 'human'], 'message_received', function(bot, message) {
+controller.hears(['help', 'operator', 'human', 'start chat'], 'message_received', function(bot, message) {
     // Forwards request to talk to a human to janis
     janis.assistanceRequested(message);
     bot.reply(message,'Hang tight. Let me see what I can do.');
@@ -150,22 +141,22 @@ controller.hears(['help', 'operator', 'human'], 'message_received', function(bot
 
 // give the bot something to listen for.
 controller.hears(['hi'], 'message_received', function(bot, message) {
-    
-    // If your bot is paused, stop it from replying
-    if (message.paused) { return };
-
     bot.reply(message,'Hello there.');
 });
 
 // Handle receiving a message.
 // NOTE: This handler only gets called if there are no matched intents handled by 'controller.hears'
 controller.on('message_received',function(bot,message) { 
-    
-    //check if paused. if it is, do not proceed
-    if (message.paused) { return };
-
+    //ignore pass_thread_control messages here
+    if (message.pass_thread_control) {
+        return;
+    }
     // log an unknown intent with janis
     janis.logUnkownIntent(message); 
     bot.reply(message, 'Huh?');
 }); 
 
+// Handle receiving an echo and handing over thread control to Janis if the source app_id matches Janis'
+controller.on('message_echo',function(bot,message) { 
+    janis.passThreadControl(message)
+}); 

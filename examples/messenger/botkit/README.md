@@ -1,8 +1,8 @@
-# [Janis](https://www.janis.ai) Messenger Bot Node.js Example
+# [Janis](https://www.janis.ai) Messenger Bot Botkit Example
 
-This is a simple Messenger Chatbot with Janis integrated. This integration example is based on [Facebook's example](https://github.com/fbsamples/messenger-platform-samples) and assumes you are coding and hosting your own Chatbot.
+This is a simple Messenger Chatbot with Janis integrated, built with botkit. This integration example assumes you are coding and hosting your own Chatbot.
 
-If you want to experiment with a hosted Chatbot example, you can remix our [Glitch project](https://glitch.com/edit/#!/janis-apiai-handover). 
+If you want to experiment with a hosted Chatbot example, you can remix our [Glitch project](https://glitch.com/edit/#!/janis-botkit). 
 
 ### Facebook Page
 

@@ -186,14 +186,7 @@ function receivedMessage(event) {
         //Janis will pass control back to this app again after 10 minutes of inactivity. 
         //If you want to manually pass back control, use the slash command `/resume` 
         //in the Janis transcript channel, or press "Done" in the Page Inbox on the thread.
-        janis.passThreadControl(event).
-        then((obj) => {
-            console.log("Successfully passed control for recipient: %s",
-                    recipientID);
-        })
-        .catch((error) => {
-            console.error("Failed calling Pass Thread Control API");
-        });
+        janis.passThreadControl(event);
       
 
         return;

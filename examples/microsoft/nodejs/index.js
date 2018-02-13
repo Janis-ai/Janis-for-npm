@@ -41,15 +41,20 @@ var sendIt = function(session, text) {
     var msg = new builder.Message()
         .address(session.address)
         .text(text);
+    msg.data.metadata = session.metadata;
     bot.send(msg, function (err) {
+      if (err) {
+        return;
+      };
+      janis.hopOut(msg.data);
     });
-    janis.hopOut(msg.data);
 }
 
 var intents = new builder.IntentDialog();
 bot.dialog('/', intents);
 
 intents.matches(/^hi/i, function (session) {
+    console.log(JSON.stringify(session.message, null, 2))
     janis.hopIn(session.message, function(isBotPaused) {
       // If your bot is paused, stop it from replying
       if (isBotPaused) { return };

@@ -63,7 +63,7 @@ function janisBot(apikey, clientkey, config) {
         if (message.text == null) {
             message.text = "";
         }
-        if ((message.type == 'user_message' || message.type == 'message' || 
+        if ((message.type == 'direct_message' || message.type == 'user_message' || message.type == 'message' || 
             message.type == 'facebook_postback' || message.type == null || message.page) &&
             message.transcript == null &&
             (message.subtype == null || message.subtype == "file_share") &&
@@ -327,60 +327,53 @@ function janisBot(apikey, clientkey, config) {
         var isEcho = message.is_echo;
         var appId = message.app_id;
 
-        if (isEcho) {
+        //If an agent responds via the Messenger Inbox, then `appId` will be null.
+        //If an agent responds from Janis on Slack, the `appId` will be 1242623579085955.
+        //In both cases, we should pause your bot by giving the thread control to Janis.
+        //Janis will pass control back to your app again after 10 minutes of inactivity. 
+        //If you want to manually pass back control, use the slash command `/resume` 
+        //in the Janis transcript channel, or press "Done" in the Page Inbox on the thread.
+
+        //See: https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles
+        //This app should be the Primary Receiver. Janis should be a Secondary Receiver.
+        //Every time an echo from either Janis or the Page Inbox is received,
+        //this app passes control over to Janis so the humans are the only ones who can respond.            
+
+        if (isEcho && (appId == that.janisAppId || appId == null)) {
           
-            //If an agent responds via the Messenger Inbox, then `appId` will be null.
-            //If an agent responds from Janis on Slack, the `appId` will be 1242623579085955.
-            //In both cases, we should pause your bot by giving the thread control to Janis.
-            //Janis will pass control back to your app again after 10 minutes of inactivity. 
-            //If you want to manually pass back control, use the slash command `/resume` 
-            //in the Janis transcript channel, or press "Done" in the Page Inbox on the thread.
-            
-            
-            if (appId == that.janisAppId || appId == null) {
-                //See: https://developers.facebook.com/docs/messenger-platform/handover-protocol#app_roles
-                //This app should be the Primary Receiver. Janis should be a Secondary Receiver.
-                //Every time an echo from either Janis or the Page Inbox is received,
-                //this app passes control over to Janis so the humans are the only ones who can respond.            
-                var data = {
-                    uri: 'https://graph.facebook.com/v2.6/me/pass_thread_control',
-                    qs: {
-                        access_token: that.token
+            var data = {
+                uri: 'https://graph.facebook.com/v2.6/me/pass_thread_control',
+                qs: {
+                    access_token: that.token
+                },
+                method: 'POST',
+                json: {
+                    "recipient": {
+                        "id": recipientID
                     },
-                    method: 'POST',
-                    json: {
-                        "recipient": {
-                            "id": recipientID
-                        },
-                        "target_app_id": that.janisAppId,
-                        "metadata": "passing thread"
-                    }
+                    "target_app_id": that.janisAppId,
+                    "metadata": "passing thread"
                 }
-                return rp(data)
-                .then(function (obj) {
-                    if (cb) {
-                        cb(obj);
-                    } 
-                    return obj;
-                })
-                .catch(function (err) {
-                    if (cb) {
-                        cb(false);
-                    } 
-                    return err;
-                });
             }
-            if (cb) {
-                cb("message not from janis");
-            }
-            return Promise.resolve("message not from janis");
+            return rp(data)
+            .then(function (obj) {
+                if (cb) {
+                    cb(obj);
+                } 
+                return obj;
+            })
+            .catch(function (err) {
+                if (cb) {
+                    cb(false);
+                } 
+                return err;
+            });
         }
         if (cb) {
-            cb("no echo");
+            cb("message not from janis");
         }
-        return Promise.resolve("no echo");
+        return Promise.resolve("message not from janis");      
     }
-
 
     if (that.useWebhook) {
         return that;

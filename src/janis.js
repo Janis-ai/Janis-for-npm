@@ -63,7 +63,7 @@ function janisBot(apikey, clientkey, config) {
         if (message.text == null) {
             message.text = "";
         }
-        if ((message.type == 'direct_message' || message.type == 'user_message' || message.type == 'message' || 
+        if ((message.type == 'direct_message' || || message.type === 'direct_mention' || message.type == 'user_message' || message.type == 'message' || 
             message.type == 'facebook_postback' || message.type == null || message.page) &&
             message.transcript == null &&
             (message.subtype == null || message.subtype == "file_share") &&

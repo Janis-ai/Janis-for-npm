@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "",
-    "restify": "^4.1.1",
+    "restify": "^7.0.0",
     "janis": "^0.0.37",
     "botbuilder": ""
   }

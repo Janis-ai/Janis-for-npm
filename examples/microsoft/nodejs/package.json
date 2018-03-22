@@ -12,7 +12,7 @@
   "dependencies": {
     "dotenv": "",
     "restify": "^4.1.1",
-    "janis": "^0.0.36",
+    "janis": "^0.0.37",
     "botbuilder": ""
   }
 }

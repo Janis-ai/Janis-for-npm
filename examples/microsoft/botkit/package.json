@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "",
-    "janis": "^0.0.36",
+    "janis": "^0.0.37",
     "botkit":""
   }
 }

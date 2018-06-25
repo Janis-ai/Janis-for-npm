@@ -342,7 +342,7 @@ function janisBot(apikey, clientkey, config) {
         if (isEcho && (appId == that.janisAppId || appId == null)) {
           
             var data = {
-                uri: 'https://graph.facebook.com/v2.6/me/pass_thread_control',
+                uri: 'https://graph.facebook.com/v3.0/me/pass_thread_control',
                 qs: {
                     access_token: that.token
                 },

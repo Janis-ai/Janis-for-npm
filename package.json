@@ -4,8 +4,8 @@
   "description": "A toolkit for creating a hybrid Chatbot + Human UX",
   "main": "src/janis.js",
   "dependencies": {
+    "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
-    "request": "^2.83.0",
     "socket.io-client": "^2.1.1"
   },
   "devDependencies": {},

@@ -12,7 +12,7 @@ function janisBot(apikey, clientkey, config) {
     that.clientkey = clientkey;
 
     that.debug = config.debug || false;
-    that.serverRoot = config.serverRoot || 'https://janis.ai';
+    that.serverRoot = config.serverRoot || 'https://api.janis.ai';
     that.controller = config.controller;
     that.platform = config.platform || 'messenger';
     that.platform = that.platform.toLowerCase();

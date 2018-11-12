@@ -412,6 +412,11 @@ function janisBot(apikey, clientkey, config) {
         that.trigger(event, [msg]);
     });
 
+    socket.on('user typing', function (msg) {
+        var event = 'user typing';
+        that.trigger(event, [msg]);
+    });
+    
     socket.on('channel update', function (msg) {
         var event = 'channel update';
         that.trigger(event, [msg]);

@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "dotenv":"^2.0.0",
-    "janis":"^0.0.33",
+    "janis":"^0.0.42",
     "botkit":"^0.6.7"
   },
   "engines": {

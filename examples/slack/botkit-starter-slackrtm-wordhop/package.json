@@ -7,7 +7,7 @@
     "botkit": "^0.4",
     "dashbot": "0.7.4",
     "wordfilter": "^0.2.6",
-    "janis": "^0.0.9"
+    "janis": "^0.0.42"
   },
   "devDependencies": {},
   "scripts": {},

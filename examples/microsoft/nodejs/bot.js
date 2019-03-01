@@ -27,8 +27,8 @@ class MyBot {
         if (obj.conversation && obj.conversation.id) {
             obj.channel = obj.conversation.id;
             obj.client_key = process.env.JANIS_CLIENT_KEY;
-            if (obj.recipient && obj.recipient.id) {
-                obj.user = obj.recipient.id;
+            if (obj.from && obj.from.id) {
+                obj.user = obj.from.id;
             }
         }
     }

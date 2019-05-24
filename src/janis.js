@@ -168,6 +168,7 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
+        console.log(data)
         return rp(data)
         .then(function (obj) {
             return obj;
@@ -772,15 +773,11 @@ module.exports = function(apikey, clientkey, config) {
         }
         return janisbot.hopIn(message, reply, true)
         .then(function (obj) {
-            var isPaused = false;
-            if (obj) {
-                isPaused = obj.paused;
-            } 
-            message.paused = isPaused;
+            
             if (cb) {
-                cb(message);
+                cb(obj);
             }
-            return Promise.resolve(message);
+            return Promise.resolve(obj);
         })
         .catch(function (err) {
             if (cb) {

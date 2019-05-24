@@ -140,7 +140,7 @@ function janisBot(apikey, clientkey, config) {
         });
     }
 
-    that.hopIn = function(message, reply) {
+    that.hopIn = function(message, reply, detectIntent) {
         if (that.checkIfMessage(message) == false) { 
             return Promise.reject();
         }
@@ -156,6 +156,9 @@ function janisBot(apikey, clientkey, config) {
             },
             json: message
         };
+        if (detectIntent) {
+            data.headers.detectIntent = true;
+        }
         if (that.useWebhook === false) {
             data.headers.socket_id  = that.getSocketId();
         }
@@ -757,6 +760,35 @@ module.exports = function(apikey, clientkey, config) {
             return {text: ""};
         }
     }
+
+    janisObj.hopInAndDetectIntent = function(message, arg1, arg2) {
+        var cb;
+        var reply;
+        if (isFunction(arg1)) {
+            cb = arg1;
+        } else {
+            reply = arg1;
+            cb = arg2;
+        }
+        return janisbot.hopIn(message, reply, true)
+        .then(function (obj) {
+            var isPaused = false;
+            if (obj) {
+                isPaused = obj.paused;
+            } 
+            message.paused = isPaused;
+            if (cb) {
+                cb(message);
+            }
+            return Promise.resolve(message);
+        })
+        .catch(function (err) {
+            if (cb) {
+                cb(false);
+            } 
+            return Promise.reject(err);
+        });
+    };
 
     janisObj.hopIn = function(message, arg1, arg2) {
         var cb;

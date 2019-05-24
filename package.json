@@ -1,6 +1,6 @@
 {
   "name": "janis",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "A toolkit for creating a hybrid Chatbot + Human UX",
   "main": "src/janis.js",
   "dependencies": {

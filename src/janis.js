@@ -661,6 +661,7 @@ module.exports = function(apikey, clientkey, config) {
         if (response.result.fulfillment.messages != null) {
             var attachments = [];
             var quick_replies = [];
+
             var text = response.result.fulfillment.speech;
             if (response.result.fulfillment.messages) {
                 for (var i = 0; i < response.result.fulfillment.messages.length; i++) {
@@ -753,7 +754,18 @@ module.exports = function(apikey, clientkey, config) {
                 obj.attachments = attachments;
             }
             if (quick_replies.length > 0) {
-                obj.quick_replies = quick_replies;
+                if (janisbot.platform == 'slack') {
+                    if (obj.attachments == null) {
+                        obj.attachments = []
+                    }
+                    obj.attachments.push({text: ' ', callback_id: "generic", attachment_type: "default", actions: []})
+                    for (var qr of quick_replies) {
+                        var action = {"name": qr.title, "text": qr.title, "type": "button", value: qr.title}
+                        obj.attachments[obj.attachments.length -1].actions.push(action)
+                    }
+                } else {
+                    obj.quick_replies = quick_replies;
+                }
                 obj.metadata = '{"quick_replies": ' + JSON.stringify(quick_replies) + '}';
             }
             return obj;

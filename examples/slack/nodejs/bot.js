@@ -1,21 +1,20 @@
-
+require('dotenv').config();
 
 var express = require('express');
 var app = express();
 var request = require('request');
 var WebSocket = require('ws');
-require('dotenv').config();
 
 var janis = require('janis')(process.env.JANIS_API_KEY,process.env.JANIS_CLIENT_KEY, 
                              {platform:'slack', 
-                              serverRoot: 'https://dev.janis.ai/',
+                              serverRoot: 'https://devapi.janis.ai',
                               socketServer: 'https://devsocket.janis.ai/'});
 
 console.log(janis)
 
 
 //start
-app.listen(3000, function(){
+app.listen(3500, function(){
     console.log('Starting...');
     console.log('argument: ');
     startListening();
@@ -68,19 +67,18 @@ function startListening(){
                         if (m.isPaused) { return };
                         // Process incoming message
                         console.log("message:")
-                        console.log(m)
-
-                        // match a greeting intent and send a response
-                        if(parsed.text == 'hi' || parsed.text == 'hello'){
-                            console.log('INFO: received "hi"');
-                            var reply = { 
-                                  type: 'message', 
-                                   text: 'Hello there.', 
-                                 channel: parsed.channel 
-                            }; 
-                            sendMessage(reply);
-
+                        if (Array.isArray(m)) {
+                            for (message of m) {
+                                if (message.reply) {
+                                    var response = janis.convertFromApiaiResponseToMessage(JSON.parse(message.reply))
+                                    response.channel = parsed.channel
+                                    console.log(response)
+                                    
+                                    sendMessage(response);
+                                }
+                            }
                         }
+
                         // match an intent to talk to a real human
                         else if (parsed.text == "help" || parsed.text == "operator") {
                             // send a janis alert to your slack channel

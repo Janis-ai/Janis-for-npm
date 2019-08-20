@@ -82,157 +82,15 @@ var bot = controller.spawn({
 }).startRTM();
 
 
-controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-    var name = message.match[1];
-    controller.storage.users.get(message.user, function(err, user) {
-        if (!user) {
-            user = {
-                id: message.user,
-            };
-        }
-        user.name = name;
-        controller.storage.users.save(user, function(err, id) {
-            bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-        });
-    });
-});
-
-controller.hears(['what is my name', 'who am i'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    controller.storage.users.get(message.user, function(err, user) {
-        if (user && user.name) {
-            bot.reply(message, 'Your name is ' + user.name);
-        } else {
-            bot.startConversation(message, function(err, convo) {
-                if (!err) {
-                    convo.say('I do not know your name yet!');
-                    convo.ask('What should I call you?', function(response, convo) {
-                        convo.ask('You want me to call you `' + response.text + '`?', [
-                            {
-                                pattern: 'yes',
-                                callback: function(response, convo) {
-                                    // since no further messages are queued after this,
-                                    // the conversation will end naturally with status == 'completed'
-                                    convo.next();
-                                }
-                            },
-                            {
-                                pattern: 'no',
-                                callback: function(response, convo) {
-                                    // stop the conversation. this will cause it to end with status == 'stopped'
-                                    convo.stop();
-                                }
-                            },
-                            {
-                                default: true,
-                                callback: function(response, convo) {
-                                    convo.repeat();
-                                    convo.next();
-                                }
-                            }
-                        ]);
-
-                        convo.next();
-
-                    }, {'key': 'nickname'}); // store the results in a field called nickname
-
-                    convo.on('end', function(convo) {
-                        if (convo.status == 'completed') {
-                            bot.reply(message, 'OK! I will update my dossier...');
-
-                            controller.storage.users.get(message.user, function(err, user) {
-                                if (!user) {
-                                    user = {
-                                        id: message.user,
-                                    };
-                                }
-                                user.name = convo.extractResponse('nickname');
-                                controller.storage.users.save(user, function(err, id) {
-                                    bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-                                });
-                            });
-
-
-
-                        } else {
-                            // this happens if the conversation ended prematurely for some reason
-                            bot.reply(message, 'OK, nevermind!');
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
-
-
-controller.hears(['shutdown'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    bot.startConversation(message, function(err, convo) {
-
-        convo.ask('Are you sure you want me to shutdown?', [
-            {
-                pattern: bot.utterances.yes,
-                callback: function(response, convo) {
-                    convo.say('Bye!');
-                    convo.next();
-                    setTimeout(function() {
-                        process.exit();
-                    }, 3000);
-                }
-            },
-        {
-            pattern: bot.utterances.no,
-            default: true,
-            callback: function(response, convo) {
-                convo.say('*Phew!*');
-                convo.next();
-            }
-        }
-        ]);
-    });
-});
-
-
-controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
-    'direct_message,direct_mention,mention', function(bot, message) {
-
-        var hostname = os.hostname();
-        var uptime = formatUptime(process.uptime());
-
-        bot.reply(message,
-            ':robot_face: I am a bot named <@' + bot.identity.name +
-             '>. I have been running for ' + uptime + ' on ' + hostname + '.');
-
-    });
-
-function formatUptime(uptime) {
-    var unit = 'second';
-    if (uptime > 60) {
-        uptime = uptime / 60;
-        unit = 'minute';
-    }
-    if (uptime > 60) {
-        uptime = uptime / 60;
-        unit = 'hour';
-    }
-    if (uptime != 1) {
-        unit = unit + 's';
-    }
-
-    uptime = uptime + ' ' + unit;
-    return uptime;
-}
-
-
-
-
-var janis = require('janis')(process.env.JANIS_API_KEY, process.env.JANIS_CLIENT_KEY, {platform:'slack'});
-
+var janis = require('janis')(process.env.JANIS_API_KEY,process.env.JANIS_CLIENT_KEY, 
+                             {platform:'slack', 
+                              serverRoot: 'https://devapi.janis.ai',
+                              socketServer: 'https://devsocket.janis.ai/'});
 
 // Add the janis middleware 
-controller.middleware.receive.use(janis.receive); 
-controller.middleware.send.use(janis.send);
+//controller.middleware.receive.use(janis.receive); 
+//controller.middleware.send.use(janis.send);
+
 // Hnadle forwarding the messages sent by a human through your bot
 janis.on('chat response', function (message) {
     bot.say(message);
@@ -244,18 +102,50 @@ controller.hears(['help', 'operator', 'human'], 'direct_message,direct_mention,m
     janis.assistanceRequested(message);
 });
 
-// give the bot something to listen for.
-controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', function(bot, message) {
-    // If your bot is paused, stop it from replying
-    if (message.paused) { return };
-    bot.reply(message,'Hello there.');
+controller.on('interactive_message_callback', function (bot, message) {
+    console.log(message)
+    janis.hopInAndDetectIntent(message, function(m) {
+        if (m.isPaused) { return };
+        // Process incoming message
+        console.log("message:")
+        if (Array.isArray(m)) {
+            for (message of m) {
+                if (message.reply) {
+                    var response = janis.convertFromApiaiResponseToMessage(JSON.parse(message.reply))
+                    console.log(response)
+                    
+                    bot.reply(message, response);
+                }
+            }
+        }
+    })
+
 });
+
+
 
 // Handle receiving a message
 controller.on(['direct_mention','direct_message'],function(bot,message) { 
+
+    janis.hopInAndDetectIntent(message, function(m) {
+        if (m.isPaused) { return };
+        // Process incoming message
+        console.log("message:")
+        if (Array.isArray(m)) {
+            for (message of m) {
+                if (message.reply) {
+                    var response = janis.convertFromApiaiResponseToMessage(JSON.parse(message.reply))
+                    console.log(response)
+                    
+                    bot.reply(message, response);
+                }
+            }
+        }
+    })
+
     // log an unknown intent with janis
-    janis.logUnkownIntent(message); 
-    bot.reply(message, 'huh?');
+    //janis.logUnkownIntent(message); 
+    //bot.reply(message, 'huh?');
 }); 
 
 

@@ -828,6 +828,7 @@ module.exports = function(apikey, clientkey, config) {
                         dashbotMsg.intent.inputs.push(input)
                     }
                 }
+            }
                 
             
             dashbot.logIncoming(dashbotMsg);

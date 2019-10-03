@@ -1,6 +1,10 @@
 'use strict';
 
 var rp = require('request-promise-native');
+var dashbot
+if (process.env.DASHBOT_API_KEY) {
+    dashbot = require('dashbot')(process.env.DASHBOT_API_KEY).universal;
+}
 
 var checkIfString = function(myVar) {
     return (typeof myVar === 'string' || myVar instanceof String)
@@ -813,8 +817,29 @@ module.exports = function(apikey, clientkey, config) {
             reply = arg1;
             cb = arg2;
         }
+        if (dashbot) {
+            var dashbotMsg = {text: message.text, userId: message.channel, "dashbot_timestamp": message.ts*1000}
+            if (message.reply) {
+                var response = JSON.parse(message.reply)
+                if (response && response.result && response.result.metadata && response.result.metadata.intentName) {
+                    dashbotMsg.intent = {name: response.result.metadata.intentName, inputs: []};
+                    for (var k in response.result.parameters) {
+                        var input = {name: k, value: response.result.parameters[k]}
+                        dashbotMsg.intent.inputs.push(input)
+                    }
+                }
+                
+            
+            dashbot.logIncoming(dashbotMsg);
+        }
+        
+        
         return janisbot.hopIn(message, reply)
         .then(function (obj) {
+            
+
+
+
             var isPaused = false;
             if (obj) {
                 isPaused = obj.paused;
@@ -834,8 +859,15 @@ module.exports = function(apikey, clientkey, config) {
     };
 
     janisObj.hopOut = function(message, cb) {
+        if (dashbot) {
+            var dashbotMsg = {text: message.text, userId: message.channel, "dashbot_timestamp": message.ts*1000}
+           
+            dashbot.logOutgoing(dashbotMsg);
+        }
+        
         return janisbot.hopOut(message)
         .then(function (obj) {
+            
             if (cb) {
                 cb(true);
             } 

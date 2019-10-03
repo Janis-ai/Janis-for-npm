@@ -25,9 +25,8 @@ function janisBot(apikey, clientkey, config) {
     that.useWebhook = config.useWebhook || false;
     that.path = config.path || '/api/v1/';
     that.janisAppId = config.janisAppId || 1242623579085955;
-    
-    
-    that.checkIfMessage = function(msg) {
+
+    that.normalize = function(msg) {
         var message = msg;
         if (message.entry) {
           if (message.entry[0].messaging) {
@@ -67,6 +66,13 @@ function janisBot(apikey, clientkey, config) {
         if (message.text == null) {
             message.text = "";
         }
+        return message;
+    }
+    
+    
+    that.checkIfMessage = function(msg) {
+        var message = that.normalize(msg)
+        
         if ((message.type == 'direct_message' || message.type === 'direct_mention' || message.type == 'user_message' || message.type == 'message' || 
             message.type == 'facebook_postback' || message.type == null || message.page) &&
             message.transcript == null &&
@@ -205,8 +211,8 @@ function janisBot(apikey, clientkey, config) {
             return Promise.reject();
         }
         if (dashbot) {
-            var dashbotMsg = {text: message.text, userId: message.channel, "dashbot_timestamp": message.ts*1000}
-           
+            var msg = that.normalize(message)
+            var dashbotMsg = {text: msg.text, userId: msg.channel, "dashbot_timestamp": msg.ts*1000}
             dashbot.logOutgoing(dashbotMsg);
         }
         var data = {

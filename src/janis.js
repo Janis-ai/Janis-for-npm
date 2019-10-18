@@ -79,7 +79,7 @@ function janisBot(apikey, clientkey, config) {
             (message.subtype == null || message.subtype == "file_share") &&
             message.hasOwnProperty("reply_to") == false &&
             message.is_echo == null &&
-            (message.text.length > 0 || message.attachments != null || message.attachment != null)) {
+            (message.text.length > 0 || message.attachments != null || message.attachment != null || message.fulfillmentMessages != null)) {
             return true;
         } else {
             return false;

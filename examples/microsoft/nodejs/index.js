@@ -36,7 +36,8 @@ try {
 const Janis = require('janis');
 var janisApiKey = process.env.JANIS_API_KEY; // <= key provided by JANIS for Slack
 var janisClientKey = process.env.JANIS_CLIENT_KEY; // <= key provided by JANIS for Slack
-var janis = Janis(janisApiKey, janisClientKey, {useWebhook: false});
+const useJanisWebhook = false;
+var janis = Janis(janisApiKey, janisClientKey, {useWebhook: useJanisWebhook});
 
 
 // Handle forwarding the messages sent by a human through your bot
@@ -52,9 +53,12 @@ let chatResponseHandler = function(message) {
     });
 }
 
-janis.on('chat response', function (message) {
-    chatResponseHandler(message)
-});
+if (!useJanisWebhook) {
+    // Chat-response web-socket is being used, set the handling function
+    janis.on('chat response', function (message) {
+        chatResponseHandler(message)
+    });
+}
 
 // For local development configuration as defined in .bot file
 const DEV_ENVIRONMENT = 'development';
@@ -115,6 +119,9 @@ let webhookHandler = function(req, res) {
     var obj = req.body;    
     if (req.headers['message-type'] == "channel update") {
         return;
+    } else if (req.headers['message-type'] == "user typing") {
+        // User typing event could be relayed to user here
+        return;
     } else if (req.headers['message-type'] == "chat response") {
         chatResponseHandler(obj)
         return;
@@ -128,6 +135,10 @@ let webhookHandler = function(req, res) {
 
 // Create HTTP server
 let server = restify.createServer();
+if (useJanisWebhook) {
+    // Chat-response webhook is being used, enable request body parser
+    server.use(restify.plugins.bodyParser());
+}
 server.listen(process.env.port || process.env.PORT || 3978, function() {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);

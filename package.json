@@ -4,7 +4,7 @@
   "description": "A toolkit for creating a hybrid Chatbot + Human UX",
   "main": "src/janis.js",
   "dependencies": {
-    "dashbot": "^10.4.5",
+    "dashbot": "^12.1.0",
     "node-fetch": "^2.6.7",
     "socket.io-client": "^2.1.1"
   },

@@ -1,6 +1,6 @@
 'use strict';
 
-var rp = require('request-promise-native');
+var fetch = require("node-fetch");
 var dashbot
 if (process.env.DASHBOT_API_KEY) {
     dashbot = require('dashbot')(process.env.DASHBOT_API_KEY).universal;
@@ -114,7 +114,12 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        })
+        .then(response => response.json())
         .then(function (obj) {
             return obj;
         })
@@ -141,7 +146,12 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        })
+        .then(response => response.json())
         .then(function (obj) {
             return obj;
         })
@@ -197,7 +207,12 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        })
+        .then(response => response.json())
         .then(function (obj) {
             return obj;
         })
@@ -233,7 +248,12 @@ function janisBot(apikey, clientkey, config) {
         if (that.token != "") {
             data.headers.token = that.token;
         }
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        })
+        .then(response => response.json())
         .then(function (obj) {
             return obj;
         })
@@ -279,7 +299,12 @@ function janisBot(apikey, clientkey, config) {
             headers: headers,
             json: {"channel": channel}
         };
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+          })
+        .then(response => response.json())
         .then(function (obj) {
             if (cb) {
                 cb(obj);
@@ -306,7 +331,11 @@ function janisBot(apikey, clientkey, config) {
             url: that.serverRoot + that.path + 'channels/paused',
             headers: headers
         };
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+        })
+        .then(response => response.json())
         .then(function (body) {
             var obj = JSON.parse(body);
             if (cb) {
@@ -342,7 +371,12 @@ function janisBot(apikey, clientkey, config) {
             },
             headers: headers
         };
-        return rp(data)
+        return fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        })
+        .then(response => response.json())
         .then(function (obj) {
             if (cb) {
                 cb(obj);
@@ -392,7 +426,11 @@ function janisBot(apikey, clientkey, config) {
                     "metadata": "passing thread"
                 }
             }
-            return rp(data)
+            return fetch(`${data.uri}?access_token=${that.token}`, {
+                method: data.method,
+                body: JSON.stringify(data.json),
+            })
+            .then(response => response.json())
             .then(function (obj) {
                 if (cb) {
                     cb(obj);
@@ -441,7 +479,11 @@ function janisBot(apikey, clientkey, config) {
             json: {'socket_id': socket_id}
         };
         that.trigger('socket_id_set');
-        rp(data);
+        fetch(data.url, {
+            method: data.method,
+            headers: data.headers,
+            body: JSON.stringify(data.json),
+        });
     });
 
     socket.on('chat response', function (msg) {

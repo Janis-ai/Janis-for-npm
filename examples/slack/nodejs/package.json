@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "dotenv": "^2.0.0",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "request": "^2.79.0",
     "ws": "^1.1.1",
     "janis": "^0.0.44"
